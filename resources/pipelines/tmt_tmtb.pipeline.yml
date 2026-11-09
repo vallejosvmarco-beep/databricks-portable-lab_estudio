@@ -1,0 +1,58 @@
+resources:
+  pipelines:
+
+    tmt_tmtb:
+
+      name: TMT_TMTB
+
+      catalog: ${var.catalog}
+      schema: ${var.schema_bronce}
+
+      serverless: true
+      continuous: false
+
+      configuration:
+
+        project.catalog: ${var.catalog}
+
+        project.schema_alunizaje: ${var.schema_alunizaje}
+        project.schema_bronce: ${var.schema_bronce}
+        project.schema_plata: ${var.schema_plata}
+
+        project.volume_crudos: ${var.volume_crudos}
+        project.volume_oficiales: ${var.volume_oficiales}
+
+        project.oficial_periodo: ${var.oficial_periodo}
+        project.oficial_mes: ${var.oficial_mes}
+
+      libraries:
+
+        - file:
+            path: ../../src/tmt_tmtb/bronce/tmt.py
+
+        - file:
+            path: ../../src/tmt_tmtb/bronce/tmtb.py
+
+        - file:
+            path: ../../src/tmt_tmtb/bronce/carga.py
+
+        - file:
+            path: ../../src/tmt_tmtb/bronce/consumo.py
+
+        # - file:
+        #     path: ../../src/tmt_tmtb/bronce/carga_tmt.py
+
+        # - file:
+        #     path: ../../src/tmt_tmtb/bronce/carga_tmtb.py
+
+        # - file:
+        #     path: ../../src/tmt_tmtb/bronce/consumo_tmt.py
+
+        # - file:
+        #     path: ../../src/tmt_tmtb/bronce/consumo_tmtb.py
+
+        - file:
+            path: ../../src/tmt_tmtb/plata/plata_carga.sql
+
+        - file:
+            path: ../../src/tmt_tmtb/plata/plata_consumo.sql

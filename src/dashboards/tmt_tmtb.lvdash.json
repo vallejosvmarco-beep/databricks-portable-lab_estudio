@@ -1,0 +1,2614 @@
+{
+  "datasets": [
+    {
+      "name": "boxes_anual",
+      "displayName": "Boxes Anual",
+      "queryLines": [
+        "WITH src AS (\n",
+        "  SELECT\n",
+        "    NISE,\n",
+        "    PLAN,\n",
+        "    CASE\n",
+        "      WHEN METRICA = 'DEMANDA' THEN REPLACE(REPLACE(OPERACION, 'kVARh', 'kVAR'), 'kWh', 'kW')\n",
+        "      ELSE OPERACION\n",
+        "    END AS OPERACION,\n",
+        "    ANIO,\n",
+        "    CAST(HORA AS INT) AS HORA,\n",
+        "    METRICA,\n",
+        "    WHISKER_MIN,\n",
+        "    Q1,\n",
+        "    Q2,\n",
+        "    Q3,\n",
+        "    WHISKER_MAX,\n",
+        "    MEDIA,\n",
+        "    N,\n",
+        "    OUTLIERS_COUNT\n",
+        "  FROM\n",
+        "    desarrollo_cnfl_central_us.oro.boxes_anual\n",
+        ")\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MAX' as ESTADISTICA,\n",
+        "  WHISKER_MAX as VALOR,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q3',\n",
+        "  Q3,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'MEDIA',\n",
+        "  MEDIA,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q2 (Mediana)',\n",
+        "  Q2,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q1',\n",
+        "  Q1,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MIN',\n",
+        "  WHISKER_MIN,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src"
+      ],
+      "catalog": "powerstationengine_east_us2",
+      "schema": "default"
+    },
+    {
+      "name": "boxes_tipo_dia",
+      "displayName": "Boxes Tipo Día",
+      "queryLines": [
+        "WITH src AS (\n",
+        "  SELECT\n",
+        "    NISE,\n",
+        "    PLAN,\n",
+        "    CASE\n",
+        "      WHEN METRICA = 'DEMANDA' THEN REPLACE(REPLACE(OPERACION, 'kVARh', 'kVAR'), 'kWh', 'kW')\n",
+        "      ELSE OPERACION\n",
+        "    END AS OPERACION,\n",
+        "    TIPO_DIA,\n",
+        "    CAST(HORA AS INT) AS HORA,\n",
+        "    METRICA,\n",
+        "    WHISKER_MIN,\n",
+        "    Q1,\n",
+        "    Q2,\n",
+        "    Q3,\n",
+        "    WHISKER_MAX,\n",
+        "    MEDIA,\n",
+        "    N\n",
+        "  FROM\n",
+        "    desarrollo_cnfl_central_us.oro.boxes_tipo_dia\n",
+        ")\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MAX' as ESTADISTICA,\n",
+        "  WHISKER_MAX as VALOR,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q3',\n",
+        "  Q3,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'MEDIA',\n",
+        "  MEDIA,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q2 (Mediana)',\n",
+        "  Q2,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q1',\n",
+        "  Q1,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MIN',\n",
+        "  WHISKER_MIN,\n",
+        "  N\n",
+        "FROM\n",
+        "  src"
+      ]
+    },
+    {
+      "name": "boxes_periodo_clim",
+      "displayName": "Boxes Periodo Climático",
+      "queryLines": [
+        "WITH src AS (\n",
+        "  SELECT\n",
+        "    NISE,\n",
+        "    PLAN,\n",
+        "    CASE\n",
+        "      WHEN METRICA = 'DEMANDA' THEN REPLACE(REPLACE(OPERACION, 'kVARh', 'kVAR'), 'kWh', 'kW')\n",
+        "      ELSE OPERACION\n",
+        "    END AS OPERACION,\n",
+        "    PERIODO_CLIMATICO,\n",
+        "    CAST(HORA AS INT) AS HORA,\n",
+        "    METRICA,\n",
+        "    WHISKER_MIN,\n",
+        "    Q1,\n",
+        "    Q2,\n",
+        "    Q3,\n",
+        "    WHISKER_MAX,\n",
+        "    MEDIA,\n",
+        "    N\n",
+        "  FROM\n",
+        "    desarrollo_cnfl_central_us.oro.boxes_periodo_climatico\n",
+        ")\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MAX' as ESTADISTICA,\n",
+        "  WHISKER_MAX as VALOR,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q3',\n",
+        "  Q3,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'MEDIA',\n",
+        "  MEDIA,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q2 (Mediana)',\n",
+        "  Q2,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q1',\n",
+        "  Q1,\n",
+        "  N\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MIN',\n",
+        "  WHISKER_MIN,\n",
+        "  N\n",
+        "FROM\n",
+        "  src"
+      ]
+    },
+    {
+      "name": "boxes_tmt_vs_tmtb_long",
+      "displayName": "Boxes TMT vs TMTB (Long)",
+      "queryLines": [
+        "WITH src AS (\n",
+        "  SELECT\n",
+        "    NISE,\n",
+        "    PLAN,\n",
+        "    CASE\n",
+        "      WHEN METRICA = 'DEMANDA' THEN REPLACE(REPLACE(OPERACION, 'kVARh', 'kVAR'), 'kWh', 'kW')\n",
+        "      ELSE OPERACION\n",
+        "    END AS OPERACION,\n",
+        "    ANIO,\n",
+        "    HORA,\n",
+        "    METRICA,\n",
+        "    Q2 AS MEDIANA,\n",
+        "    MEDIA,\n",
+        "    IQR\n",
+        "  FROM\n",
+        "    desarrollo_cnfl_central_us.oro.boxes_anual\n",
+        "  WHERE\n",
+        "    PLAN IN ('TMT', 'TMTB')\n",
+        ")\n",
+        "SELECT\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  ROUND(AVG(MEDIANA), 3) AS MEDIANA_PROM,\n",
+        "  ROUND(AVG(MEDIA), 3) AS MEDIA_PROM,\n",
+        "  ROUND(AVG(IQR), 3) AS VARIABILIDAD_IQR,\n",
+        "  COUNT(DISTINCT NISE) AS NISES\n",
+        "FROM\n",
+        "  src\n",
+        "GROUP BY\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  HORA,\n",
+        "  METRICA"
+      ]
+    },
+    {
+      "name": "boxes_completo",
+      "displayName": "Boxes Completo (Año+Periodo+TipoDía)",
+      "queryLines": [
+        "WITH src AS (\n",
+        "  SELECT\n",
+        "    NISE,\n",
+        "    PLAN,\n",
+        "    CASE\n",
+        "      WHEN METRICA = 'DEMANDA' THEN REPLACE(REPLACE(OPERACION, 'kVARh', 'kVAR'), 'kWh', 'kW')\n",
+        "      ELSE OPERACION\n",
+        "    END AS OPERACION,\n",
+        "    ANIO,\n",
+        "    PERIODO_CLIMATICO,\n",
+        "    TIPO_DIA,\n",
+        "    CAST(HORA AS INT) AS HORA,\n",
+        "    METRICA,\n",
+        "    WHISKER_MIN,\n",
+        "    Q1,\n",
+        "    Q2,\n",
+        "    Q3,\n",
+        "    WHISKER_MAX,\n",
+        "    MEDIA,\n",
+        "    N,\n",
+        "    OUTLIERS_COUNT\n",
+        "  FROM\n",
+        "    desarrollo_cnfl_central_us.oro.boxes_anual_periodo_climatico_tipo_dia\n",
+        ")\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MAX' as ESTADISTICA,\n",
+        "  WHISKER_MAX as VALOR,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q3',\n",
+        "  Q3,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'MEDIA',\n",
+        "  MEDIA,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q2 (Mediana)',\n",
+        "  Q2,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'Q1',\n",
+        "  Q1,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src\n",
+        "UNION ALL\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  ANIO,\n",
+        "  PERIODO_CLIMATICO,\n",
+        "  TIPO_DIA,\n",
+        "  HORA,\n",
+        "  METRICA,\n",
+        "  'WHISKER_MIN',\n",
+        "  WHISKER_MIN,\n",
+        "  N,\n",
+        "  OUTLIERS_COUNT\n",
+        "FROM\n",
+        "  src"
+      ]
+    },
+    {
+      "name": "plata_950_perfil",
+      "displayName": "Plata 950 - Perfil Horario",
+      "queryLines": [
+        "WITH base AS (\n",
+        "  SELECT\n",
+        "    p.NISE,\n",
+        "    CASE\n",
+        "      WHEN t.nis IS NOT NULL THEN 'TMT'\n",
+        "      WHEN tb.nis IS NOT NULL THEN 'TMTB'\n",
+        "      ELSE 'OTRO'\n",
+        "    END AS PLAN,\n",
+        "    CASE\n",
+        "      WHEN METRICA = 'DEMANDA' THEN REPLACE(REPLACE(p.OPERACION, 'kVARh', 'kVAR'), 'kWh', 'kW')\n",
+        "      ELSE p.OPERACION\n",
+        "    END AS OPERACION,\n",
+        "    p.FECHA,\n",
+        "    HOUR(p.FECHA_LECTURA) AS HORA,\n",
+        "    CASE\n",
+        "      WHEN dayofweek(p.FECHA) IN (1, 7) THEN 'FIN_DE_SEMANA'\n",
+        "      ELSE 'ENTRE_SEMANA'\n",
+        "    END AS TIPO_DIA,\n",
+        "    METRICA,\n",
+        "    VALOR\n",
+        "  FROM\n",
+        "    (\n",
+        "      SELECT\n",
+        "        NISE,\n",
+        "        OPERACION,\n",
+        "        FECHA_LECTURA,\n",
+        "        FECHA,\n",
+        "        STACK(2, 'ENERGIA', ENERGIA, 'DEMANDA', DEMANDA) AS (METRICA, VALOR)\n",
+        "      FROM\n",
+        "        desarrollo_cnfl_central_us.plata_analisis.plata_950_carga\n",
+        "    ) p\n",
+        "      LEFT JOIN (\n",
+        "        SELECT DISTINCT\n",
+        "          CAST(nis AS STRING) AS nis\n",
+        "        FROM\n",
+        "          desarrollo_cnfl_central_us.bronce.tmt\n",
+        "      ) t\n",
+        "        ON p.NISE = t.nis\n",
+        "      LEFT JOIN (\n",
+        "        SELECT DISTINCT\n",
+        "          CAST(nis AS STRING) AS nis\n",
+        "        FROM\n",
+        "          desarrollo_cnfl_central_us.bronce.tmtb\n",
+        "      ) tb\n",
+        "        ON p.NISE = tb.nis\n",
+        "  WHERE\n",
+        "    VALOR IS NOT NULL\n",
+        ")\n",
+        "SELECT\n",
+        "  NISE,\n",
+        "  PLAN,\n",
+        "  OPERACION,\n",
+        "  FECHA,\n",
+        "  HORA,\n",
+        "  TIPO_DIA,\n",
+        "  METRICA,\n",
+        "  ROUND(VALOR, 4) AS VALOR\n",
+        "FROM\n",
+        "  base"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "f71579f9",
+      "displayName": "Perfil Horario Anual",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_nise",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_NISE",
+                "query": {
+                  "datasetName": "boxes_anual",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "NISE_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "NIS",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "NISE",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_NISE"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_op",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_OPERACION",
+                "query": {
+                  "datasetName": "boxes_anual",
+                  "fields": [
+                    {
+                      "name": "OPERACION",
+                      "expression": "`OPERACION`"
+                    },
+                    {
+                      "name": "OPERACION_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Operación",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "OPERACION",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_OPERACION"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_met",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_METRICA",
+                "query": {
+                  "datasetName": "boxes_anual",
+                  "fields": [
+                    {
+                      "name": "METRICA",
+                      "expression": "`METRICA`"
+                    },
+                    {
+                      "name": "METRICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Métrica",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "METRICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_METRICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_anual",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_anual",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Perfil Horario Anual — Q1/Q2/Q3/Whiskers",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor (kWh/kW)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                },
+                "extra": [
+                  {
+                    "fieldName": "PLAN"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_plan",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_PLAN",
+                "query": {
+                  "datasetName": "boxes_anual",
+                  "fields": [
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "PLAN_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Plan",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "PLAN",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_PLAN"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "380bf505",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_ESTADISTICA",
+                "query": {
+                  "datasetName": "boxes_anual",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "ESTADISTICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "ESTADISTICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192751056156d866edb5c4a8bd5d7_ESTADISTICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "tipo_dia",
+      "displayName": "Entre Semana vs Fin de Semana",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_nise",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_NISE",
+                "query": {
+                  "datasetName": "boxes_tipo_dia",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "NISE_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "NIS",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "NISE",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_NISE"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_op",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_OPERACION",
+                "query": {
+                  "datasetName": "boxes_tipo_dia",
+                  "fields": [
+                    {
+                      "name": "OPERACION",
+                      "expression": "`OPERACION`"
+                    },
+                    {
+                      "name": "OPERACION_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Operación",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "OPERACION",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_OPERACION"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_met",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_METRICA",
+                "query": {
+                  "datasetName": "boxes_tipo_dia",
+                  "fields": [
+                    {
+                      "name": "METRICA",
+                      "expression": "`METRICA`"
+                    },
+                    {
+                      "name": "METRICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Métrica",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "METRICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_METRICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_entre_semana",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_tipo_dia",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('ENTRE_SEMANA')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Entre Semana — Perfil Horario",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor (kWh/kW)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "displayName": "Estadística",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_fin_semana",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_tipo_dia",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('FIN_DE_SEMANA')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Fin de Semana — Perfil Horario",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor (kWh/kW)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "displayName": "Estadística",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_plan",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_PLAN",
+                "query": {
+                  "datasetName": "boxes_tipo_dia",
+                  "fields": [
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "PLAN_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Plan",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "PLAN",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_PLAN"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "ea9e17d9",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_ESTADISTICA",
+                "query": {
+                  "datasetName": "boxes_tipo_dia",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "ESTADISTICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "ESTADISTICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510be1f8d8d4fc484496b23cb_ESTADISTICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "periodo_clim",
+      "displayName": "Periodo Climático",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_nise",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_NISE",
+                "query": {
+                  "datasetName": "boxes_periodo_clim",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "NISE_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "NIS",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "NISE",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_NISE"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_op",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_OPERACION",
+                "query": {
+                  "datasetName": "boxes_periodo_clim",
+                  "fields": [
+                    {
+                      "name": "OPERACION",
+                      "expression": "`OPERACION`"
+                    },
+                    {
+                      "name": "OPERACION_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Operación",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "OPERACION",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_OPERACION"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_met",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_METRICA",
+                "query": {
+                  "datasetName": "boxes_periodo_clim",
+                  "fields": [
+                    {
+                      "name": "METRICA",
+                      "expression": "`METRICA`"
+                    },
+                    {
+                      "name": "METRICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Métrica",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "METRICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_METRICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_lluvioso",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_periodo_clim",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`PERIODO_CLIMATICO` IN ('PERIODO_LLUVIOSO')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Periodo Lluvioso — Perfil Horario",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor (kWh/kW)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "displayName": "Estadística",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_seco",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_periodo_clim",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`PERIODO_CLIMATICO` IN ('PERIODO_SECO')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Periodo Seco — Perfil Horario",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor (kWh/kW)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "displayName": "Estadística",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_plan",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_PLAN",
+                "query": {
+                  "datasetName": "boxes_periodo_clim",
+                  "fields": [
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "PLAN_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Plan",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "PLAN",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_PLAN"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "76d4b659",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_ESTADISTICA",
+                "query": {
+                  "datasetName": "boxes_periodo_clim",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "ESTADISTICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "ESTADISTICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1927510ef11bdb211a7554cb6c4e7_ESTADISTICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "granularidad_completa",
+      "displayName": "Granularidad Completa",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_nise",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_NISE",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "NISE_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "NIS",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "NISE",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_NISE"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_op",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_OPERACION",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "OPERACION",
+                      "expression": "`OPERACION`"
+                    },
+                    {
+                      "name": "OPERACION_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Operación",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "OPERACION",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_OPERACION"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_met",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_METRICA",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "METRICA",
+                      "expression": "`METRICA`"
+                    },
+                    {
+                      "name": "METRICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Métrica",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "METRICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_METRICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_plan",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_PLAN",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "PLAN_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Plan",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "PLAN",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_PLAN"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_es_lluvioso",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('ENTRE_SEMANA')"
+                    },
+                    {
+                      "expression": "`PERIODO_CLIMATICO` IN ('PERIODO_LLUVIOSO')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Entre Semana + Lluvioso",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_es_seco",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('ENTRE_SEMANA')"
+                    },
+                    {
+                      "expression": "`PERIODO_CLIMATICO` IN ('PERIODO_SECO')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Entre Semana + Seco",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_fs_lluvioso",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('FIN_DE_SEMANA')"
+                    },
+                    {
+                      "expression": "`PERIODO_CLIMATICO` IN ('PERIODO_LLUVIOSO')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Fin de Semana + Lluvioso",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_fs_seco",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "sum(VALOR)",
+                      "expression": "SUM(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('FIN_DE_SEMANA')"
+                    },
+                    {
+                      "expression": "`PERIODO_CLIMATICO` IN ('PERIODO_SECO')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Fin de Semana + Seco",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(VALOR)",
+                  "displayName": "Valor",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "ESTADISTICA",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "linePattern": {
+                  "fieldName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "899c557f",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_ESTADISTICA",
+                "query": {
+                  "datasetName": "boxes_completo",
+                  "fields": [
+                    {
+                      "name": "ESTADISTICA",
+                      "expression": "`ESTADISTICA`"
+                    },
+                    {
+                      "name": "ESTADISTICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "ESTADISTICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f1929b361e10329879ec1fe6b5f00d_ESTADISTICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "plata_950_tipo_dia",
+      "displayName": "Plata 950 - Entre Semana vs Fin de Semana",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_nise",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_NISE",
+                "query": {
+                  "datasetName": "plata_950_perfil",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "NISE_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "NIS",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "NISE",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_NISE"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_op",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_OPERACION",
+                "query": {
+                  "datasetName": "plata_950_perfil",
+                  "fields": [
+                    {
+                      "name": "OPERACION",
+                      "expression": "`OPERACION`"
+                    },
+                    {
+                      "name": "OPERACION_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Operación",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "OPERACION",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_OPERACION"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_met",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_METRICA",
+                "query": {
+                  "datasetName": "plata_950_perfil",
+                  "fields": [
+                    {
+                      "name": "METRICA",
+                      "expression": "`METRICA`"
+                    },
+                    {
+                      "name": "METRICA_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Métrica",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "METRICA",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_METRICA"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_plan",
+            "queries": [
+              {
+                "name": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_PLAN",
+                "query": {
+                  "datasetName": "plata_950_perfil",
+                  "fields": [
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "PLAN_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Plan",
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "PLAN",
+                    "queryName": "dashboards/01f1927407f21350a22488d5b785a343/datasets/01f192d9a6551baab5d0c9419e162afc_PLAN"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_entre_semana",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "plata_950_perfil",
+                  "fields": [
+                    {
+                      "name": "FECHA",
+                      "expression": "`FECHA`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "avg(VALOR)",
+                      "expression": "AVG(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('ENTRE_SEMANA')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "title": "Entre Semana — Perfil Horario (Plata 950)",
+                "showTitle": true
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(VALOR)",
+                  "displayName": "Valor",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "FECHA",
+                  "displayName": "Día",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_fin_semana",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "plata_950_perfil",
+                  "fields": [
+                    {
+                      "name": "FECHA",
+                      "expression": "`FECHA`"
+                    },
+                    {
+                      "name": "HORA",
+                      "expression": "`HORA`"
+                    },
+                    {
+                      "name": "avg(VALOR)",
+                      "expression": "AVG(`VALOR`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`TIPO_DIA` IN ('FIN_DE_SEMANA')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "title": "Fin de Semana — Perfil Horario (Plata 950)",
+                "showTitle": true
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "HORA",
+                  "displayName": "Hora del Día",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(VALOR)",
+                  "displayName": "Valor",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "FECHA",
+                  "displayName": "Día",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

@@ -1,0 +1,114 @@
+bundle:
+  name: databricks_portable_lab
+
+include:
+  - resources/*.yml
+  - resources/pipelines/*.yml
+  - resources/jobs/*.yml
+  - resources/dashboards/*.yml
+  - databricks.local*.yml
+
+
+variables:
+
+  # ============================================================
+  # VARIABLE DE CATALOGO - CRUCIAL PARA PORTABILIDAD
+  # ============================================================
+  # IMPORTANTE: El catalogo 'workspace' NO EXISTE en todos los entornos.
+  # 
+  # MIGRACION ENTRE WORKSPACES:
+  #
+  # 1. PRIMERA VEZ EN UN NUEVO WORKSPACE:
+  #    a) Lista catalogos disponibles:
+  #       databricks catalogs list
+  #    
+  #    b) Crea databricks.local.yml (ignorado por git):
+  #       cp databricks.local.yml.example databricks.local.yml
+  #    
+  #    c) Edita databricks.local.yml y cambia el catalogo:
+  #       variables:
+  #         catalog:
+  #           default: main  # O el nombre de tu catalogo
+  #    
+  #    d) Deploy:
+  #       databricks bundle deploy --target free_dev
+  #
+  # 2. DEPLOY TEMPORAL (sin crear databricks.local.yml):
+  #    databricks bundle deploy --var catalog=main --target free_dev
+  #
+  # 3. COMPORTAMIENTO DEL BOOTSTRAP:
+  #    - El script bootstrap.py verificara si el catalogo existe
+  #    - Si NO existe, intentara crearlo (requiere permisos)
+  #    - Si falla, mostrara catalogos disponibles y detendra el deploy
+  #    - Esto previene deploys parciales que fallan a mitad de camino
+  #
+  # 4. NUNCA CAMBIES ESTE VALOR POR DEFECTO:
+  #    - Mantener 'workspace' como default es intencional
+  #    - Fuerza a cada desarrollador a configurar explicitamente su entorno
+  #    - Evita commits accidentales con catalogos personales
+  # ============================================================
+  catalog:
+    default: workspace
+
+  schema_alunizaje:
+    default: alunizaje
+
+  schema_bronce:
+    default: bronce
+
+  schema_plata:
+    default: plata
+
+  schema_analisis:
+    default: plata_analisis
+
+  schema_oro:
+    default: oro
+
+  volume_crudos:
+    default: datos_crudos
+
+  volume_oficiales:
+    default: datos_oficiales
+
+  oficial_periodo:
+    default: "2026"
+
+  oficial_mes:
+    default: "06"
+
+  periodo_inicio:
+    default: "2026-06-01"
+
+  periodo_fin:
+    default: "2026-07-31"
+
+  warehouse_id:
+    description: SQL Warehouse utilizado por el dashboard
+    lookup:
+      warehouse: Serverless Starter Warehouse
+
+scripts:
+
+  bootstrap:
+
+    env:
+      BUNDLE_TARGET: ${bundle.target}
+      CATALOG: ${var.catalog}
+
+    content: |
+      echo "Bootstrap target: $BUNDLE_TARGET"
+      echo "Catalogo: $CATALOG"
+      python3 scripts/bootstrap.py "$CATALOG"
+
+
+targets:
+
+  free_dev:
+
+    mode: development
+    default: true
+
+    variables:
+
+      catalog: workspace

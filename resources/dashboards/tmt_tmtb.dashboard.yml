@@ -1,0 +1,13 @@
+resources:
+  dashboards:
+
+    tmt_tmtb_dashboard:
+
+      display_name: TMT_TMTB - Analisis de Carga
+
+      file_path: ../../src/dashboards/tmt_tmtb.lvdash.json
+
+      warehouse_id: ${var.warehouse_id}
+      
+      dataset_catalog: ${var.catalog}
+      dataset_schema: ${var.schema_oro}

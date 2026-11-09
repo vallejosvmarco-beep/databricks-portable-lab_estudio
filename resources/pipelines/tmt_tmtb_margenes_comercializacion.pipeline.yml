@@ -1,0 +1,29 @@
+resources:
+  pipelines:
+
+    tmt_tmtb_margenes_comercializacion:
+
+      name: TMT_TMTB_Margenes_Comercializacion
+
+      catalog: ${var.catalog}
+      target: ${var.schema_oro}
+
+      serverless: true
+      continuous: false
+
+      configuration:
+
+        project.catalog: ${var.catalog}
+
+        project.schema_bronce: ${var.schema_bronce}
+        project.schema_plata: ${var.schema_plata}
+        project.schema_analisis: ${var.schema_analisis}
+        project.schema_oro: ${var.schema_oro}
+
+        project.periodo_inicio: ${var.periodo_inicio}
+        project.periodo_fin: ${var.periodo_fin}
+
+      libraries:
+
+        - file:
+            path: ../../src/tmt_tmtb/oro/margen_comercializacion.sql

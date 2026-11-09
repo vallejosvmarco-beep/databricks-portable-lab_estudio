@@ -1,0 +1,37 @@
+resources:
+  pipelines:
+
+    tmt_tmtb_analisis:
+
+      name: TMT_TMTB_Analisis
+
+      catalog: ${var.catalog}
+      schema: ${var.schema_analisis}
+
+      serverless: true
+      continuous: false
+
+      configuration:
+
+        project.catalog: ${var.catalog}
+
+        project.schema_bronce: ${var.schema_bronce}
+        project.schema_plata: ${var.schema_plata}
+        project.schema_analisis: ${var.schema_analisis}
+        project.schema_oro: ${var.schema_oro}
+
+        project.periodo_inicio: "2026-02-01"
+        project.periodo_fin: ${var.periodo_fin}
+
+        project.fuente_plata: tabla
+      libraries:
+        - file:
+            path: ../../src/tmt_tmtb_analisis/plata/plata_carga_diferencias.sql
+        - file:
+            path: ../../src/tmt_tmtb_analisis/plata/plata_carga_completitud.sql
+        - file:
+            path: ../../src/tmt_tmtb_analisis/plata/plata_950_carga.sql
+        - file:
+            path: ../../src/tmt_tmtb_analisis/oro/boxes.sql
+        - file:
+            path: /Workspace/Users/mvallejos3100@gmail.com/plata/00_fuentes_plata.sql

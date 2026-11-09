@@ -1,0 +1,704 @@
+{
+  "datasets": [
+    {
+      "name": "margenes_dataset",
+      "displayName": "Márgenes de Comercialización",
+      "queryLines": [
+        "SELECT\r\n",
+        "  *\r\n",
+        "FROM\r\n",
+        "  desarrollo_cnfl_central_us.oro.oro_margen_comercializacion"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "overview",
+      "displayName": "Resumen General",
+      "layout": [
+        {
+          "widget": {
+            "name": "kpi_energia",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "sum(Energia_Total_kWh)",
+                      "expression": "SUM(`Energia_Total_kWh`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Energía Total (kWh)",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Energia_Total_kWh)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_ingreso",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "sum(Total_Ingreso)",
+                      "expression": "SUM(`Total_Ingreso`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Ingreso Total",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Total_Ingreso)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_costo",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "sum(Total_Costo)",
+                      "expression": "SUM(`Total_Costo`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Costo Total",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Total_Costo)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_margen",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "sum(Margen_Total)",
+                      "expression": "SUM(`Margen_Total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Margen Total",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Margen_Total)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_margen_plan",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "sum(Margen_Total)",
+                      "expression": "SUM(`Margen_Total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Margen por Plan Tarifario",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "PLAN",
+                  "displayName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Margen_Total)",
+                  "displayName": "Margen_Total",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "PLAN",
+                  "displayName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_margen_cliente",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "sum(Margen_Total)",
+                      "expression": "SUM(`Margen_Total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 10 Clientes por Margen",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "NISE",
+                  "displayName": "NISE",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Margen_Total)",
+                  "displayName": "Margen_Total",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "NISE",
+                  "displayName": "NISE",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 4,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "table_detalle",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "sum(Energia_Total_kWh)",
+                      "expression": "SUM(`Energia_Total_kWh`)"
+                    },
+                    {
+                      "name": "sum(Total_Ingreso)",
+                      "expression": "SUM(`Total_Ingreso`)"
+                    },
+                    {
+                      "name": "sum(Total_Costo)",
+                      "expression": "SUM(`Total_Costo`)"
+                    },
+                    {
+                      "name": "sum(Margen_Total)",
+                      "expression": "SUM(`Margen_Total`)"
+                    },
+                    {
+                      "name": "avg(Margen_Porcentaje)",
+                      "expression": "AVG(`Margen_Porcentaje`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Detalle de Márgenes por Cliente y Plan",
+                "showTitle": true
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "NISE"
+                  },
+                  {
+                    "fieldName": "PLAN"
+                  },
+                  {
+                    "fieldName": "sum(Energia_Total_kWh)"
+                  },
+                  {
+                    "fieldName": "sum(Total_Ingreso)"
+                  },
+                  {
+                    "fieldName": "sum(Total_Costo)"
+                  },
+                  {
+                    "fieldName": "sum(Margen_Total)"
+                  },
+                  {
+                    "fieldName": "avg(Margen_Porcentaje)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 12,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_margen_pct",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "avg(Margen_Porcentaje)",
+                      "expression": "AVG(`Margen_Porcentaje`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Margen % Promedio por Plan",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(Margen_Porcentaje)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 20,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "scatter_rentabilidad",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "avg(Margen_Porcentaje)",
+                      "expression": "AVG(`Margen_Porcentaje`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Distribución de Clientes por Rentabilidad",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "NISE",
+                  "displayName": "NISE",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(Margen_Porcentaje)",
+                  "displayName": "Margen_Porcentaje",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "NISE",
+                  "displayName": "NISE",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 20,
+            "width": 8,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_ingreso_plan",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "sum(Total_Ingreso)",
+                      "expression": "SUM(`Total_Ingreso`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Ingreso vs Costo por Plan",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "PLAN",
+                  "displayName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Total_Ingreso)",
+                  "displayName": "Total_Ingreso",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "PLAN",
+                  "displayName": "PLAN",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 28,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "table_eficiencia",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "PLAN",
+                      "expression": "`PLAN`"
+                    },
+                    {
+                      "name": "sum(Energia_Total_kWh)",
+                      "expression": "SUM(`Energia_Total_kWh`)"
+                    },
+                    {
+                      "name": "sum(Total_Ingreso)",
+                      "expression": "SUM(`Total_Ingreso`)"
+                    },
+                    {
+                      "name": "avg(Margen_Porcentaje)",
+                      "expression": "AVG(`Margen_Porcentaje`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Eficiencia Energética (kWh/Ingreso)",
+                "showTitle": true
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "NISE"
+                  },
+                  {
+                    "fieldName": "PLAN"
+                  },
+                  {
+                    "fieldName": "sum(Energia_Total_kWh)"
+                  },
+                  {
+                    "fieldName": "sum(Total_Ingreso)"
+                  },
+                  {
+                    "fieldName": "avg(Margen_Porcentaje)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 28,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "c446a692",
+            "queries": [
+              {
+                "name": "dashboards/01f197828dd11fb384fbe1a987683ff2/datasets/01f197828dd21086b9f6ea13b84c6f81_NISE",
+                "query": {
+                  "datasetName": "margenes_dataset",
+                  "fields": [
+                    {
+                      "name": "NISE",
+                      "expression": "`NISE`"
+                    },
+                    {
+                      "name": "NISE_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "NISE",
+                    "queryName": "dashboards/01f197828dd11fb384fbe1a987683ff2/datasets/01f197828dd21086b9f6ea13b84c6f81_NISE"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 36,
+            "width": 4,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

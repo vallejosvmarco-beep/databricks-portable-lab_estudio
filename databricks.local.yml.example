@@ -1,0 +1,111 @@
+# ============================================================
+# CONFIGURACION LOCAL DEL BUNDLE
+# ============================================================
+# Este archivo contiene configuracion especifica de tu entorno local.
+# NO DEBE VERSIONARSE EN GIT.
+#
+# Uso:
+#   1. Copia este archivo: cp databricks.local.yml.example databricks.local.yml
+#   2. Edita databricks.local.yml con tus valores
+#   3. Asegurate de que databricks.local.yml este en .gitignore
+#
+# Este archivo sobrescribe los valores por defecto en databricks.yml
+# ============================================================
+
+# ============================================================
+# TARGETS - Configuracion por entorno
+# ============================================================
+# IMPORTANTE: Se usa target-level override (no variable default) porque
+# en DABs los defaults de databricks.yml NO se sobreescriben desde
+# archivos incluidos. El override a nivel de target SI tiene efecto.
+#
+# Para ver catalogos disponibles:
+#   databricks catalogs list
+#
+targets:
+  free_dev:
+    variables:
+      catalog: main  # CAMBIA ESTO por tu catalogo
+
+  # ============================================================
+  # SCHEMAS (Opcional - solo si quieres nombres diferentes)
+  # ============================================================
+  # Por defecto usa: alunizaje, bronce, plata, plata_analisis, oro
+  # Descomenta y modifica solo si necesitas nombres diferentes:
+  #
+  # schema_alunizaje:
+  #   default: landing
+  # 
+  # schema_bronce:
+  #   default: bronze
+  # 
+  # schema_plata:
+  #   default: silver
+  # 
+  # schema_analisis:
+  #   default: silver_analytics
+  # 
+  # schema_oro:
+  #   default: gold
+
+  # ============================================================
+  # VOLUMES (Opcional)
+  # ============================================================
+  # Por defecto usa: datos_crudos, datos_oficiales
+  # Descomenta y modifica solo si necesitas nombres diferentes:
+  #
+  # volume_crudos:
+  #   default: raw_data
+  # 
+  # volume_oficiales:
+  #   default: official_data
+
+  # ============================================================
+  # PERIODO DE DATOS (Opcional)
+  # ============================================================
+  # Ajusta el periodo de datos que procesaras.
+  # Por defecto: Junio 2026
+  #
+  # oficial_periodo:
+  #   default: "2026"
+  # 
+  # oficial_mes:
+  #   default: "06"
+  # 
+  # periodo_inicio:
+  #   default: "2026-06-01"
+  # 
+  # periodo_fin:
+  #   default: "2026-06-30"
+
+  # ============================================================
+  # SQL WAREHOUSE (Opcional)
+  # ============================================================
+  # Si tienes un warehouse especifico que quieres usar:
+  # warehouse_id:
+  #   lookup:
+  #     warehouse: "My Custom Warehouse"
+
+
+# ============================================================
+# TARGETS PERSONALIZADOS (Opcional)
+# ============================================================
+# Puedes crear targets adicionales para diferentes entornos:
+#
+# targets:
+#
+#   # Entorno de produccion
+#   prod:
+#     mode: production
+#     variables:
+#       catalog: prod
+#       periodo_inicio: "2026-01-01"
+#       periodo_fin: "2026-12-31"
+#
+#   # Entorno de testing con datos limitados
+#   test:
+#     mode: development
+#     variables:
+#       catalog: test
+#       periodo_inicio: "2026-06-01"
+#       periodo_fin: "2026-06-07"  # Solo una semana

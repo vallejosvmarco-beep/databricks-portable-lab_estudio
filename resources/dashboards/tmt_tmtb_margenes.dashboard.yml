@@ -1,0 +1,12 @@
+resources:
+  dashboards:
+
+    tmt_tmtb_margenes:
+
+      display_name: 'TMT TMTB - Análisis de Márgenes de Comercialización'
+      
+      file_path: ../../src/dashboards/margenes_comercializacion.lvdash.json
+      
+      warehouse_id: ${var.warehouse_id}
+      dataset_catalog: ${var.catalog}
+      dataset_schema: ${var.schema_oro}

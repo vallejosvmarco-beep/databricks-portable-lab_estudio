@@ -1,0 +1,35 @@
+resources:
+  jobs:
+    tmt_tmtb_workflow:
+      name: TMT_TMTB_Workflow
+      queue:
+        enabled: true
+
+      tasks:
+        # ============================================================
+        # TAREA 1: Actualizar datos incrementales (bronce y plata)
+        # ============================================================
+        - task_key: actualizar_incremental
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.tmt_tmtb.id}
+
+        # ============================================================
+        # TAREA 2: Recalcular análisis de calidad de datos
+        # ============================================================
+        - task_key: recalcular_analisis
+          depends_on:
+            - task_key: actualizar_incremental
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.tmt_tmtb_analisis.id}
+
+        # ============================================================
+        # TAREA 3: Calcular márgenes de comercialización
+        # ============================================================
+        # IMPORTANTE: Usa la referencia dinámica al recurso del bundle
+        # NO uses pipeline_id hardcodeado para mantener portabilidad
+        # ============================================================
+        - task_key: margenes_comercializacion
+          depends_on:
+            - task_key: recalcular_analisis
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.tmt_tmtb_margenes_comercializacion.id}
